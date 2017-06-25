@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FrankHaolunLi Popular Movies</string>
+    <string name="action_change_sort_order">ChangeSortOrder</string>
+</resources>
