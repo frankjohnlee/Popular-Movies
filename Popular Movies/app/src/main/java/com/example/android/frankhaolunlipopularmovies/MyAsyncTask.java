@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class MyAsyncTask extends AsyncTask<Void, Void, ArrayList<HashMap<String, String>>> {
+public class MyAsyncTask extends AsyncTask<Void, Void, String> {
     private OnTaskCompleted listener;
 
 
@@ -39,6 +39,7 @@ public class MyAsyncTask extends AsyncTask<Void, Void, ArrayList<HashMap<String,
         } catch (IOException e) {
                 e.printStackTrace();
         }
+
         return searchResults;
         }
 
