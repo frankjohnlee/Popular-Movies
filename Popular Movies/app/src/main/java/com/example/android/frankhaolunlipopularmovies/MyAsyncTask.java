@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.example.android.frankhaolunlipopularmovies.utilities.NetworkUtils;
 import com.example.android.frankhaolunlipopularmovies.utilities.JsonParser;
-
+import com.example.android.frankhaolunlipopularmovies.utilities.JsonParser;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class MyAsyncTask extends AsyncTask<Void, Void, String> {
+public class MyAsyncTask extends AsyncTask<URL, Void, String> {
     private OnTaskCompleted listener;
 
 
@@ -44,13 +44,10 @@ public class MyAsyncTask extends AsyncTask<Void, Void, String> {
         }
 
     @Override
-    protected ArrayList<HashMap<String, String>> onPostExecute(String searchResults) {
+    protected String onPostExecute(String searchResults) {
 
         if (searchResults != null && !searchResults.equals("")) {
-            ArrayList<HashMap<String, String>>
-                    movieList = JsonParser.ParseJson(searchResults);
-            return movieList;
-
+            return searchResults;
         }
         return null;
     }
