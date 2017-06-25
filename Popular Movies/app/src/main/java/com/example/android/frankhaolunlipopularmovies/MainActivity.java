@@ -20,8 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity
-        implements OnTaskCompleted {
-
+        implements MovieAdapter.ListItemClickListener {
 
     private static final int NUM_LIST_ITEMS = 100;
     MyRecyclerViewAdapter adapter;
@@ -100,49 +99,19 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    // COMPLETED (10) Override ListItemClickListener's onListItemClick method
-    /**
-     * This is where we receive our callback from
-     * {@link com.example.android.recyclerview.GreenAdapter.ListItemClickListener}
-     *
-     * This callback is invoked when you click on an item in the list.
-     *
-     * @param clickedItemIndex Index in the list of the item that was clicked.
-     */
     @Override
     public void onListItemClick(int clickedItemIndex) {
-        // COMPLETED (11) In the beginning of the method, cancel the Toast if it isn't null
-        /*
-         * Even if a Toast isn't showing, it's okay to cancel it. Doing so
-         * ensures that our new Toast will show immediately, rather than
-         * being delayed while other pending Toasts are shown.
-         *
-         * Comment out these three lines, run the app, and click on a bunch of
-         * different items if you're not sure what I'm talking about.
-         */
+
         if (mToast != null) {
             mToast.cancel();
         }
 
-        // COMPLETED (12) Show a Toast when an item is clicked, displaying that item number that was clicked
-        /*
-         * Create a Toast and store it in our Toast field.
-         * The Toast that shows up will have a message similar to the following:
-         *
-         *                     Item #42 clicked.
-         */
         String toastMessage = "Item #" + clickedItemIndex + " clicked.";
         mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
 
         mToast.show();
     }
     private void makeSearchQuery() {
-        /**
-         * This method retrieves the search text from the EditText, constructs
-         * the URL (using {@link NetworkUtils}) for the sort order you'd like to find, displays
-         * that URL in a TextView, and finally fires off an AsyncTask to perform the GET request using
-         * our (not yet created) {@link GithubQueryTask}
-         */
         URL searchUrl = NetworkUtils.buildPopularUrl();
         Log.d("searchUrl", searchUrl.toString());
         new QueryTask().execute(searchUrl);
@@ -166,8 +135,6 @@ public class MainActivity extends AppCompatActivity
             if (searchResults != null && !searchResults.equals("")) {
                 movieList = jsonParser.ParseJson(searchResults);
                 String[] arrayMovieTitles = this.getStringArray(movieList, TAG_TITLE);
-
-
             }
         }
 
