@@ -6,5 +6,5 @@ package com.example.android.frankhaolunlipopularmovies;
 
 
 public interface OnTaskCompleted{
-    void onTaskCompleted();
+    void onTaskCompleted(String myString);
 }
