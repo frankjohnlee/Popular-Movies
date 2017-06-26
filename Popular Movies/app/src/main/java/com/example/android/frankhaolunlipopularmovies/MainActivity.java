@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.android.frankhaolunlipopularmovies.utilities.JsonParser;
 import com.example.android.frankhaolunlipopularmovies.utilities.MyRecyclerViewAdapter;
+import com.example.android.frankhaolunlipopularmovies.utilities.NetworkUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MyAsyncTask task = new MyAsyncTask(this);
+        NetworkUtils networkUtils = new NetworkUtils();
+
 
 
 
