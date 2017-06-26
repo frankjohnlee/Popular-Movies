@@ -1,26 +1,22 @@
 package com.example.android.frankhaolunlipopularmovies;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.android.frankhaolunlipopularmovies.utilities.JsonParser;
 import com.example.android.frankhaolunlipopularmovies.utilities.MyRecyclerViewAdapter;
-import com.example.android.frankhaolunlipopularmovies.utilities.NetworkUtils;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity
         implements MovieAdapter.ListItemClickListener, OnTaskCompleted{
+
 
     private static final int NUM_LIST_ITEMS = 100;
     MyRecyclerViewAdapter adapter;
@@ -33,13 +29,16 @@ public class MainActivity extends AppCompatActivity
     private MovieAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private Toast mToast;
+    OnTaskCompleted myInterface;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.makeSearchQuery();
+        MyAsyncTask task = new MyAsyncTask(this);
+
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rvNumbers);
@@ -49,6 +48,13 @@ public class MainActivity extends AppCompatActivity
             mAdapter = new MovieAdapter(NUM_LIST_ITEMS, this);
         mRecyclerView.setAdapter(mAdapter);
     }
+
+    @Override
+    public void onTaskCompleted(String myString){
+        JsonParser jsonParser = new JsonParser();
+        movieList = jsonParser.ParseJson(myString);
+    };
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

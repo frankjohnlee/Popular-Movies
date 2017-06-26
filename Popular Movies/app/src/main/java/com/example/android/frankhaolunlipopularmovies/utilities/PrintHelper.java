@@ -10,6 +10,7 @@ import java.util.HashMap;
  */
 
 public class PrintHelper {
+    boolean debugMode = false;
 
     public void print(String name, String input) {
         if (debugMode) {
