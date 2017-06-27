@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -46,19 +45,21 @@ public class MainActivity extends AppCompatActivity
         URL searchUrl = NetworkUtils.buildPopularUrl();
         myAsyncTask.execute(searchUrl);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.rvNumbers);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
-        mAdapter = new MovieAdapter(NUM_LIST_ITEMS, this);
-        mRecyclerView.setAdapter(mAdapter);
+
     }
 
         @Override
         public void onTaskCompleted(String myString){
-            Log.d("do I ever reach this", "test");
             JsonParser jsonParser = new JsonParser();
             movieList = jsonParser.ParseJson(myString);
+
+            mRecyclerView = (RecyclerView) findViewById(R.id.rvNumbers);
+            GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+            mRecyclerView.setLayoutManager(layoutManager);
+            mRecyclerView.setHasFixedSize(true);
+            mAdapter = new MovieAdapter(movieList, this);
+            mRecyclerView.setAdapter(mAdapter);
+
         };
 
 
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity
              */
             case R.id.action_refresh:
                 // COMPLETED (14) Pass in this as the ListItemClickListener to the GreenAdapter constructor
-                mAdapter = new MovieAdapter(NUM_LIST_ITEMS, this);
+                mAdapter = new MovieAdapter(movieList, this);
                 mRecyclerView.setAdapter(mAdapter);
                 return true;
         }

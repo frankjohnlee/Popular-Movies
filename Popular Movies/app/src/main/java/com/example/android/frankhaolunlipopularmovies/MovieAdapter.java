@@ -8,20 +8,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHolder> {
 
     private static final String TAG = MovieAdapter.class.getSimpleName();
 
-    // COMPLETED (3) Create a final private ListItemClickListener called mOnClickListener
-    /*
-     * An on-click handler that we've defined to make it easy for an Activity to interface with
-     * our RecyclerView
-     */
     final private ListItemClickListener mOnClickListener;
     
     private static int viewHolderCount;
 
     private int mNumberItems;
+
+    private ArrayList<HashMap<String, String>> movieList;
+
+    // Declaring Java Nodes
+    private static final String TAG_MOVIE_INFO = "results";
+    private static final String TAG_VOTE_COUNT = "vote_count";
+    private static final String TAG_MOVIE_ID = "id";
+    private static final String TAG_VIDEO = "video";
+    private static final String TAG_VOTE_AVERAGE = "vote_average";
+    private static final String TAG_TITLE = "title";
+    private static final String TAG_POPULARITY = "popularity";
+    private static final String TAG_POSTER_PATH = "poster_path";
+    private static final String TAG_ORIGINAL_LANGUAGE = "original_language";
+    private static final String TAG_ORIGINAL_TITLE = "original_title";
+    private static final String TAG_GENRE_IDS = "genre_ids";
+    private static final String TAG_BACKDROP_PATH = "backdrop_path";
+    private static final String TAG_ADULT = "adult";
+    private static final String TAG_OVERVIEW = "overview";
+    private static final String TAG_RELEASE_DATE = "release_date";
 
     // COMPLETED (1) Add an interface called ListItemClickListener
     // COMPLETED (2) Within that interface, define a void method called onListItemClick that takes an int as a parameter
@@ -40,8 +57,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
      * @param numberOfItems Number of items to display in list
      * @param listener Listener for list item clicks
      */
-    public MovieAdapter(int numberOfItems, ListItemClickListener listener) {
-        mNumberItems = numberOfItems;
+    public MovieAdapter(ArrayList<HashMap<String, String>> movielist, ListItemClickListener listener) {
+        movieList = movielist;
+        mNumberItems = movieList.size();
         mOnClickListener = listener;
         viewHolderCount = 0;
     }
@@ -68,7 +86,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
         View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
         NumberViewHolder viewHolder = new NumberViewHolder(view);
 
-        viewHolder.viewHolderIndex.setText("ViewHolder index: " + Integer.toString(viewHolderCount));
+        String movieTitle = movieList.get(viewHolderCount).get(TAG_TITLE);
+        viewHolder.viewHolderIndex.setText(movieTitle);
 
 
         viewHolderCount++;

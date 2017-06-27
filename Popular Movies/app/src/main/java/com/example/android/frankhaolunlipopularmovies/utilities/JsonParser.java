@@ -34,6 +34,7 @@ public class JsonParser {
 
     public ArrayList<HashMap<String, String>> ParseJson(String inputString) {
 
+
         if (inputString != null && inputString != "") {
             try {
                 // Hashmap for ListView
