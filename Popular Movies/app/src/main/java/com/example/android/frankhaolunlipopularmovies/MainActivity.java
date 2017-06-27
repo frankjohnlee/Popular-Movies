@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity
         MyAsyncTask myAsyncTask = new MyAsyncTask(this);
         URL searchUrl = NetworkUtils.buildPopularUrl();
         myAsyncTask.execute(searchUrl);
-        myInterface.onTaskCompleted();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rvNumbers);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
