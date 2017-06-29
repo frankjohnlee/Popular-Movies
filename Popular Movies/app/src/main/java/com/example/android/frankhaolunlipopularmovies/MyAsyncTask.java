@@ -34,6 +34,4 @@ import java.net.URL;
             listener.onTaskCompleted(searchResults);
         }
 
-
-
     }

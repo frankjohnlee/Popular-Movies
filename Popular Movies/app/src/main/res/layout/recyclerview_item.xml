@@ -15,10 +15,21 @@
      limitations under the License.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_view_holder_instance"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:fontFamily="monospace"
+        android:textColor="#000"
+        tools:text="ViewHolder instance: 7" />
 
     <TextView
         android:id="@+id/recyclerViewId"
@@ -30,13 +41,9 @@
         android:textSize="42sp"
         tools:text="#42" />
 
-    <TextView
-        android:id="@+id/tv_view_holder_instance"
-        style="@style/TextAppearance.AppCompat.Title"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|end"
-        android:fontFamily="monospace"
-        android:textColor="#000"
-        tools:text="ViewHolder instance: 7" />
+        app:srcCompat="@android:drawable/editbox_dropdown_light_frame" />
 </FrameLayout>

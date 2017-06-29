@@ -29,6 +29,9 @@ public class NetworkUtils {
     final static String PARAM_SORT = "sort";
     final static String PARAM_API_KEY = "api_key";
 
+    final static String MOVIEDB_BASE_IMAGE = "https://image.tmdb.org/t/p";
+    final static String MOVIEDB_w500_SIZE = "/w500";
+
     /**
      * @return The URL for the query
      */
@@ -55,6 +58,17 @@ public class NetworkUtils {
             e.printStackTrace();
         }
 
+        return url;
+    }
+
+    public static URL buildImageUrl(String myString){
+        String stringUri = MOVIEDB_BASE_IMAGE + MOVIEDB_w500_SIZE + myString;
+        URL url = null;
+        try {
+            url = new URL(stringUri);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         return url;
     }
 

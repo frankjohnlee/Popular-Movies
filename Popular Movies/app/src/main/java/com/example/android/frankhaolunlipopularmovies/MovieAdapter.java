@@ -6,22 +6,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.frankhaolunlipopularmovies.utilities.JsonParser;
+import com.example.android.frankhaolunlipopularmovies.utilities.NetworkUtils;
+import com.squareup.picasso.Picasso;
+
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHolder>, OnTaskCompleted {
 
     private static final String TAG = MovieAdapter.class.getSimpleName();
 
     final private ListItemClickListener mOnClickListener;
-    
     private static int viewHolderCount;
-
     private int mNumberItems;
-
     private ArrayList<HashMap<String, String>> movieList;
+
 
     // Declaring Java Nodes
     private static final String TAG_MOVIE_INFO = "results";
@@ -40,11 +44,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
     private static final String TAG_OVERVIEW = "overview";
     private static final String TAG_RELEASE_DATE = "release_date";
 
-    // COMPLETED (1) Add an interface called ListItemClickListener
-    // COMPLETED (2) Within that interface, define a void method called onListItemClick that takes an int as a parameter
-    /**
-     * The interface that receives onClick messages.
-     */
     public interface ListItemClickListener {
         void onListItemClick(int clickedItemIndex);
     }
@@ -87,6 +86,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
         NumberViewHolder viewHolder = new NumberViewHolder(view);
 
         String movieTitle = movieList.get(viewHolderCount).get(TAG_TITLE);
+
+        String partialImageUrl = movieList.get(viewHolderCount).get(TAG_POSTER_PATH);
+        URL imageUrl = NetworkUtils.buildImageUrl(partialImageUrl);
+        Picasso.with(this).load(imageUrl).into(imageUrl);
+
+
         viewHolder.viewHolderIndex.setText(movieTitle);
 
 
@@ -96,6 +101,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
         return viewHolder;
     }
 
+    public void onTaskCompleted(String myString){
+        JsonParser jsonParser = new JsonParser();
+        movieList = jsonParser.ParseJson(myString);
+
+
+    };
     /**
      * OnBindViewHolder is called by the RecyclerView to display the data at the specified
      * position. In this method, we update the contents of the ViewHolder to display the correct
@@ -134,6 +145,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
         TextView listItemNumberView;
         // Will display which ViewHolder is displaying this data
         TextView viewHolderIndex;
+        // Will display the image
+        ImageView imageView;
 
         /**
          * Constructor for our ViewHolder. Within this constructor, we get a reference to our
@@ -147,6 +160,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
 
             listItemNumberView = (TextView) itemView.findViewById(R.id.recyclerViewId);
             viewHolderIndex = (TextView) itemView.findViewById(R.id.tv_view_holder_instance);
+            imageView = (ImageView) itemView.findViewById(R.id.imageView);
             // COMPLETED (7) Call setOnClickListener on the View passed into the constructor (use 'this' as the OnClickListener)
             itemView.setOnClickListener(this);
         }
@@ -157,7 +171,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
          * @param listIndex Position of the item in the list
          */
         void bind(int listIndex) {
-            listItemNumberView.setText(String.valueOf(listIndex));
+            listItemNumberView.setText("");
         }
 
 
