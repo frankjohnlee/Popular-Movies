@@ -17,6 +17,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.android.frankhaolunlipopularmovies.R.id.imageView;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHolder>, OnTaskCompleted {
 
     private static final String TAG = MovieAdapter.class.getSimpleName();
@@ -89,7 +91,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
 
         String partialImageUrl = movieList.get(viewHolderCount).get(TAG_POSTER_PATH);
         URL imageUrl = NetworkUtils.buildImageUrl(partialImageUrl);
-        Picasso.with(this).load(imageUrl).into(imageUrl);
+        Picasso.with(this).load(imageUrl).into(imageView);
 
 
         viewHolder.viewHolderIndex.setText(movieTitle);
@@ -160,7 +162,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
 
             listItemNumberView = (TextView) itemView.findViewById(R.id.recyclerViewId);
             viewHolderIndex = (TextView) itemView.findViewById(R.id.tv_view_holder_instance);
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            imageView = (ImageView) itemView.findViewById(imageView);
             // COMPLETED (7) Call setOnClickListener on the View passed into the constructor (use 'this' as the OnClickListener)
             itemView.setOnClickListener(this);
         }
