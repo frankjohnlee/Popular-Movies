@@ -10,10 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.frankhaolunlipopularmovies.utilities.JsonParser;
-import com.example.android.frankhaolunlipopularmovies.utilities.NetworkUtils;
-import com.squareup.picasso.Picasso;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -84,7 +81,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
         boolean shouldAttachToParentImmediately = false;
 
         View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
-        NumberViewHolder viewHolder = new NumberViewHolder(view, context);
+        NumberViewHolder viewHolder = new NumberViewHolder(view);
 
         String movieTitle = movieList.get(viewHolderCount).get(TAG_TITLE);
         viewHolder.viewHolderIndex.setText(movieTitle);
