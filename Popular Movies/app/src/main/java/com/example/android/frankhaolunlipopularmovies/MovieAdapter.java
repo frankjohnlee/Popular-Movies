@@ -19,14 +19,15 @@ import java.util.HashMap;
 
 import static com.example.android.frankhaolunlipopularmovies.R.id.imageView;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHolder>, OnTaskCompleted {
 
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHolder> {
     private static final String TAG = MovieAdapter.class.getSimpleName();
 
     final private ListItemClickListener mOnClickListener;
     private static int viewHolderCount;
     private int mNumberItems;
     private ArrayList<HashMap<String, String>> movieList;
+
 
 
     // Declaring Java Nodes
@@ -85,13 +86,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
         boolean shouldAttachToParentImmediately = false;
 
         View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
-        NumberViewHolder viewHolder = new NumberViewHolder(view);
+        NumberViewHolder viewHolder = new NumberViewHolder(view, context);
 
         String movieTitle = movieList.get(viewHolderCount).get(TAG_TITLE);
 
-        String partialImageUrl = movieList.get(viewHolderCount).get(TAG_POSTER_PATH);
-        URL imageUrl = NetworkUtils.buildImageUrl(partialImageUrl);
-        Picasso.with(this).load(imageUrl).into(imageView);
 
 
         viewHolder.viewHolderIndex.setText(movieTitle);
@@ -120,9 +118,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(NumberViewHolder holder, int position) {
+    public void onBindViewHolder(NumberViewHolder holder, int position, Context context) {
         Log.d(TAG, "#" + position);
-        holder.bind(position);
+        holder.bind(context);
+
     }
 
     /**
@@ -148,7 +147,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
         // Will display which ViewHolder is displaying this data
         TextView viewHolderIndex;
         // Will display the image
-        ImageView imageView;
+        ImageView myImageView;
 
         /**
          * Constructor for our ViewHolder. Within this constructor, we get a reference to our
@@ -157,12 +156,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
          * @param itemView The View that you inflated in
          *                 {@link MovieAdapter#onCreateViewHolder(ViewGroup, int)}
          */
-        public NumberViewHolder(View itemView) {
+        public NumberViewHolder(View itemView, Context context) {
             super(itemView);
 
             listItemNumberView = (TextView) itemView.findViewById(R.id.recyclerViewId);
             viewHolderIndex = (TextView) itemView.findViewById(R.id.tv_view_holder_instance);
-            imageView = (ImageView) itemView.findViewById(imageView);
+            myImageView = (ImageView) itemView.findViewById(imageView);
             // COMPLETED (7) Call setOnClickListener on the View passed into the constructor (use 'this' as the OnClickListener)
             itemView.setOnClickListener(this);
         }
@@ -172,8 +171,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
          * use that integer to display the appropriate text within a list item.
          * @param listIndex Position of the item in the list
          */
-        void bind(int listIndex) {
-            listItemNumberView.setText("");
+        void bind(Context context) {
+            String partialImageUrl = movieList.get(viewHolderCount).get(TAG_POSTER_PATH);
+            URL imageUrl = NetworkUtils.buildImageUrl(partialImageUrl);
+            Picasso.with(context).load("http://www.myurl.com/myimage.jpg").into(myImageView);
         }
 
 
