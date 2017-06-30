@@ -35,21 +35,14 @@ public class MainActivity extends AppCompatActivity
     private Toast mToast;
     OnTaskCompleted myInterface;
 
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MyAsyncTask myAsyncTask = new MyAsyncTask(this);
         URL searchUrl = NetworkUtils.buildPopularUrl();
         myAsyncTask.execute(searchUrl);
-
-
     }
-
-        @Override
-        public void onTaskCompleted(String myString){
+    @Override public void onTaskCompleted(String myString){
             JsonParser jsonParser = new JsonParser();
             movieList = jsonParser.ParseJson(myString);
 
@@ -57,20 +50,15 @@ public class MainActivity extends AppCompatActivity
             GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
             mRecyclerView.setLayoutManager(layoutManager);
             mRecyclerView.setHasFixedSize(true);
-            mAdapter = new MovieAdapter(movieList, this);
+            mAdapter = new MovieAdapter(movieList, this, this);
             mRecyclerView.setAdapter(mAdapter);
 
         };
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
 
         int itemId = item.getItemId();
 
@@ -83,24 +71,17 @@ public class MainActivity extends AppCompatActivity
              */
             case R.id.action_refresh:
                 // COMPLETED (14) Pass in this as the ListItemClickListener to the GreenAdapter constructor
-                mAdapter = new MovieAdapter(movieList, this);
+                mAdapter = new MovieAdapter(movieList, this, this);
                 mRecyclerView.setAdapter(mAdapter);
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public void onListItemClick(int clickedItemIndex) {
-
-        if (mToast != null) {
-            mToast.cancel();
-        }
-
+    @Override public void onListItemClick(int clickedItemIndex) {
+        if (mToast != null) {mToast.cancel();}
         String toastMessage = "Item #" + clickedItemIndex + " clicked.";
         mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
-
         mToast.show();
     }
 

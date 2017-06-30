@@ -10,7 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.frankhaolunlipopularmovies.utilities.JsonParser;
+import com.example.android.frankhaolunlipopularmovies.utilities.NetworkUtils;
+import com.squareup.picasso.Picasso;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -37,7 +40,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
     private static final String TAG_OVERVIEW = "overview";
     private static final String TAG_RELEASE_DATE = "release_date";
 
-    private Context context;
+    private Context myContext;
     final private ListItemClickListener mOnClickListener;
     private static int viewHolderCount;
     private int mNumberItems;
@@ -46,17 +49,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
     public interface ListItemClickListener {
         void onListItemClick(int clickedItemIndex);
     }
-    public MovieAdapter(ArrayList<HashMap<String, String>> movielist, ListItemClickListener listener) {
+    public MovieAdapter(ArrayList<HashMap<String, String>> movielist,
+                        ListItemClickListener listener,
+                        Context context) {
         /**
          * Constructor for MovieAdapter that accepts a number of items to display and the specification
          * for the ListItemClickListener.
          *
          * @param movielist [Movie1, Movie2,...] where each object is a Hashmap containing movie information
          * @param listener Listener for list item clicks
+         * @param context is the context
          */
         movieList = movielist;
-        mNumberItems = movieList.size();
+        if (movielist != null){ mNumberItems = movieList.size();}
+        else {mNumberItems = 0;};
         mOnClickListener = listener;
+        myContext = context;
         viewHolderCount = 0;
     }
 
@@ -108,7 +116,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
          * @param position The position of the item within the adapter's data set.
          */
         Log.d(TAG, "#" + position);
-        holder.bind(position);
+        holder.bind(myContext);
 
     }
     @Override public int getItemCount() {
@@ -144,13 +152,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
             // COMPLETED (7) Call setOnClickListener on the View passed into the constructor (use 'this' as the OnClickListener)
             itemView.setOnClickListener(this);
         }
-        void bind(int listIndex) {
+        void bind(Context myContext) {
             /**
              * A method we wrote for convenience. This method will take an integer as input and
              * use that integer to display the appropriate text within a list item.
              * @param listIndex Position of the item in the list
              */
-            listItemNumberView.setText(Integer.toString(listIndex));
+            String partialImageUrl = movieList.get(viewHolderCount).get(TAG_POSTER_PATH);
+            URL imageUrl = NetworkUtils.buildImageUrl(partialImageUrl);
+            Picasso.with(myContext).load("http://www.myurl.com/myimage.jpg").into(myImageView);
         }
         @Override public void onClick(View v) {
             /**
