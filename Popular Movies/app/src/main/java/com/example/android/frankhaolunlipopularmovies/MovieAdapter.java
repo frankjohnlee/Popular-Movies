@@ -13,7 +13,6 @@ import com.example.android.frankhaolunlipopularmovies.utilities.JsonParser;
 import com.example.android.frankhaolunlipopularmovies.utilities.NetworkUtils;
 import com.squareup.picasso.Picasso;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -116,7 +115,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
          * @param position The position of the item within the adapter's data set.
          */
         Log.d(TAG, "#" + position);
-        holder.bind(myContext);
+        holder.bind(myContext, position);
 
     }
     @Override public int getItemCount() {
@@ -152,15 +151,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
             // COMPLETED (7) Call setOnClickListener on the View passed into the constructor (use 'this' as the OnClickListener)
             itemView.setOnClickListener(this);
         }
-        void bind(Context myContext) {
+        void bind(Context myContext, int listIndex) {
             /**
              * A method we wrote for convenience. This method will take an integer as input and
              * use that integer to display the appropriate text within a list item.
              * @param listIndex Position of the item in the list
              */
             String partialImageUrl = movieList.get(viewHolderCount).get(TAG_POSTER_PATH);
-            URL imageUrl = NetworkUtils.buildImageUrl(partialImageUrl);
-            Picasso.with(myContext).load("http://www.myurl.com/myimage.jpg").into(myImageView);
+            String imageUrlString = NetworkUtils.buildImageUrlString(partialImageUrl);
+            Picasso.with(myContext).load(imageUrlString).into(myImageView);
         }
         @Override public void onClick(View v) {
             /**

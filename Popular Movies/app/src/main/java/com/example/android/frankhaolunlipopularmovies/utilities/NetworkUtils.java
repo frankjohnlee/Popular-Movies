@@ -71,6 +71,12 @@ public class NetworkUtils {
         }
         return url;
     }
+    public static String buildImageUrlString(String myString){
+        String stringUri = MOVIEDB_BASE_IMAGE + MOVIEDB_w500_SIZE + myString;
+        return stringUri;
+    }
+
+
 
     /**
      * This method returns the entire result from the HTTP response.
