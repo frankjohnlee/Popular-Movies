@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">FrankHaolunLi Popular Movies</string>
-    <string name="action_change_sort_order">ChangeSortOrder</string>
+    <string name="app_name">Frank Movie App</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_run">Lap Runner</string>
+    <string name="title_activity_finish_workout">FinishWorkout</string>
+    <string name="popular_movie">Sort by Popular Movie</string>
+    <string name="top_movie">Sort by Top Movie</string>
+    <string name="sort_by">Sort By</string>
+    <string name="refresh">Refresh</string>
 </resources>

@@ -44,13 +44,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
     private static int viewHolderCount;
     private int mNumberItems;
     private ArrayList<HashMap<String, String>> movieList;
+    private String mySearchType;
 
     public interface ListItemClickListener {
         void onListItemClick(int clickedItemIndex);
     }
     public MovieAdapter(ArrayList<HashMap<String, String>> movielist,
                         ListItemClickListener listener,
-                        Context context) {
+                        Context context, String searchType) {
         /**
          * Constructor for MovieAdapter that accepts a number of items to display and the specification
          * for the ListItemClickListener.
@@ -65,11 +66,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
         mOnClickListener = listener;
         myContext = context;
         viewHolderCount = 0;
+        mySearchType = searchType;
     }
 
 
-    @Override
-    public NumberViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    @Override public NumberViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         /**
          *
          * This gets called when each new ViewHolder is created. This happens when the RecyclerView
@@ -91,7 +92,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
         NumberViewHolder viewHolder = new NumberViewHolder(view);
 
         String movieTitle = movieList.get(viewHolderCount).get(TAG_TITLE);
-        viewHolder.viewHolderIndex.setText(movieTitle);
+//        viewHolder.viewHolderIndex.setText(movieTitle);
         viewHolderCount++;
         Log.d(TAG, "onCreateViewHolder: number of ViewHolders created: "
                 + viewHolderCount);
@@ -100,8 +101,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
     public void onTaskCompleted(String myString){
         JsonParser jsonParser = new JsonParser();
         movieList = jsonParser.ParseJson(myString);
-
-
     };
     @Override public void onBindViewHolder(NumberViewHolder holder, int position) {
         /**
@@ -157,9 +156,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
              * use that integer to display the appropriate text within a list item.
              * @param listIndex Position of the item in the list
              */
-            String partialImageUrl = movieList.get(viewHolderCount).get(TAG_POSTER_PATH);
+            String partialImageUrl = movieList.get(listIndex).get(TAG_POSTER_PATH);
             String imageUrlString = NetworkUtils.buildImageUrlString(partialImageUrl);
             Picasso.with(myContext).load(imageUrlString).into(myImageView);
+
         }
         @Override public void onClick(View v) {
             /**
