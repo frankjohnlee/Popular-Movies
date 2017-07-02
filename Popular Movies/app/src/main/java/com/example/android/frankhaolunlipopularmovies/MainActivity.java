@@ -116,7 +116,4 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("theMovieClicked", theMovieClicked);
         startActivity(intent);
     }
-
-
-
 }

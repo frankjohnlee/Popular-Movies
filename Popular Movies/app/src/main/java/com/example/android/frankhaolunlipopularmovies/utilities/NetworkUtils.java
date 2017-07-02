@@ -17,7 +17,7 @@ public class NetworkUtils {
             "http://api.themoviedb.org/3/movie/";
 
     final static String MOVIEDB_API_KEY =
-            "?api_key=" + "857dab6372c0b45e15f3827ce51d1a7a";
+            "?api_key=" + "YOUR API KEY HERE";
 
 
     final static String MOVIEDB_MOST_POPULAR_TAG =
