@@ -31,12 +31,14 @@ public class MovieInformation extends AppCompatActivity {
     private static final String TAG_RELEASE_DATE = "release_date";
 
     String title = "";
+    String originalTitle = "Original Title: ";
     String rating = "Rating: ";
     String popularity = "Popularity: ";
     String originalLanguage = "Original Language: ";
     String releaseDate = "Release Date: ";
-    String overview = "";
+    String overview = "Summary: \n";
     String posterPath = "Poster Path: ";
+    String adultRating = "Adult Maturity: ";
 
     TextView titleTextView;
     TextView ratingTextView;
@@ -44,12 +46,15 @@ public class MovieInformation extends AppCompatActivity {
     TextView originalLanguageTextView;
     TextView releaseDateTextView;
     TextView overviewTextView;
+    TextView adultRatingTextView;
+    TextView originalTitleTextView;
     ImageView posterImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_information);
+
 
         // Get Views
         Intent intent = getIntent();
@@ -60,15 +65,19 @@ public class MovieInformation extends AppCompatActivity {
         originalLanguage += hashMap.get(TAG_ORIGINAL_LANGUAGE);
         releaseDate += hashMap.get(TAG_RELEASE_DATE);
         overview += hashMap.get(TAG_OVERVIEW);
+        originalTitle += hashMap.get(TAG_ORIGINAL_TITLE);
+        adultRating += hashMap.get(TAG_ADULT);
 
         // Set up Views
-        titleTextView = (TextView) findViewById(R.id.movie_title);
-        ratingTextView = (TextView) findViewById(R.id.rating);
+        titleTextView = (TextView) findViewById(R.id.movieTitle);
+        ratingTextView = (TextView) findViewById(R.id.voteAverage);
         popularityTextView = (TextView) findViewById(R.id.popularity);
-        originalLanguageTextView = (TextView) findViewById(R.id.original_language);
-        releaseDateTextView = (TextView) findViewById(R.id.release_date);
-        overviewTextView = (TextView) findViewById(R.id.oveview);
-        posterImageView = (ImageView) findViewById(R.id.poster_image);
+        originalLanguageTextView = (TextView) findViewById(R.id.originalLanguage);
+        releaseDateTextView = (TextView) findViewById(R.id.releaseDate);
+        overviewTextView = (TextView) findViewById(R.id.movieSummary);
+        posterImageView = (ImageView) findViewById(R.id.moviePoster);
+        adultRatingTextView = (TextView) findViewById(R.id.adult);
+        originalTitleTextView = (TextView) findViewById(R.id.originalTitle);
 
 
         // Set the Text
@@ -78,6 +87,8 @@ public class MovieInformation extends AppCompatActivity {
         originalLanguageTextView.setText(originalLanguage);
         releaseDateTextView.setText(releaseDate);
         overviewTextView.setText(overview);
+        adultRatingTextView.setText(adultRating);
+        originalTitleTextView.setText(originalTitle);
 
         // Set poster image
         posterPath = hashMap.get(TAG_POSTER_PATH);

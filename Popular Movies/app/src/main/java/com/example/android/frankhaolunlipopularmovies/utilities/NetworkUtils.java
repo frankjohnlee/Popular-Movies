@@ -17,8 +17,7 @@ public class NetworkUtils {
             "http://api.themoviedb.org/3/movie/";
 
     final static String MOVIEDB_API_KEY =
-            "?api_key=" + "YOUR API KEY HERE";
-
+            "?api_key=" + "857dab6372c0b45e15f3827ce51d1a7a";
 
     final static String MOVIEDB_MOST_POPULAR_TAG =
             "popular";
@@ -88,6 +87,12 @@ public class NetworkUtils {
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
+            // set the connection timeout to 5 seconds and the read timeout to 10 seconds
+            // setConnectTimeout method is used in establishing a connection to the url
+            urlConnection.setConnectTimeout(5000);
+            // setReadTimeout is used in reading data on an already established connection
+            urlConnection.setReadTimeout(10000);
+
             InputStream in = urlConnection.getInputStream();
 
             Scanner scanner = new Scanner(in);

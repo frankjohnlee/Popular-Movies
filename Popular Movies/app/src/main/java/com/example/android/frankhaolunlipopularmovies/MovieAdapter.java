@@ -158,7 +158,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
              */
             String partialImageUrl = movieList.get(listIndex).get(TAG_POSTER_PATH);
             String imageUrlString = NetworkUtils.buildImageUrlString(partialImageUrl);
-            Picasso.with(myContext).load(imageUrlString).into(myImageView);
+            Picasso.with(myContext).load(imageUrlString).placeholder(R.drawable.loading).into(myImageView);
 
         }
         @Override public void onClick(View v) {
